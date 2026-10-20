@@ -1,8 +1,11 @@
 'use strict';
 
 const http = require('node:http');
+const dayjs = require('dayjs');
 
 const PORT = 3000;
+// Kişisel bilgilerin gelince bu alanları güncelle.
+const DERS_GUNU = '[DERS GÜNÜNÜ YAZ]';
 
 // Her sayfa aynı HTML iskeletini kullanır. Dosyalar UTF-8 olarak saklanır.
 function sayfa(baslik, icerik) {
@@ -28,6 +31,27 @@ const sunucu = http.createServer((istek, yanit) => {
   // Sorgu dizesi, yönlendirmede kullanılan yoldan ayrılır.
   const yol = new URL(istek.url, 'http://localhost:3000').pathname;
   console.log(`${istek.method} ${yol}`);
+
+  if (yol === '/api/ders') {
+    yanit.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+    yanit.end(JSON.stringify({ kod: 'BMH231', ad: 'Web Programlama', gun: DERS_GUNU }));
+    return;
+  }
+
+  if (yol === '/api/agep') {
+    // İki tarihi de gün başlangıcına çekmek saatten kaynaklanan eksik gün hesabını önler.
+    // Sunucunun yerel saat dilimi kullanılır; Türkiye için TZ=Europe/Istanbul uygundur.
+    const bugun = dayjs().startOf('day');
+    const sonTeslim = dayjs('2026-11-01').startOf('day');
+    const kalanGun = sonTeslim.diff(bugun, 'day');
+    yanit.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+    yanit.end(JSON.stringify({
+      sonTeslimTarihi: sonTeslim.format('DD.MM.YYYY'),
+      bugun: bugun.format('DD.MM.YYYY'),
+      kalanGun,
+    }));
+    return;
+  }
 
   if (yol === '/') {
     yanit.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
