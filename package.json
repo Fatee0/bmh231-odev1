@@ -1,0 +1,17 @@
+{
+  "name": "bmh231-odev1",
+  "version": "1.0.0",
+  "description": "BMH231 için http ve dayjs ile geliştirilen web sunucusu",
+  "main": "sunucu.js",
+  "scripts": {
+    "test": "node --test",
+    "start": "node sunucu.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dayjs": "^1.11.23"
+  },
+  "private": "true"
+}
