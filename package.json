@@ -13,5 +13,5 @@
   "dependencies": {
     "dayjs": "^1.11.23"
   },
-  "private": "true"
+  "private": true
 }
