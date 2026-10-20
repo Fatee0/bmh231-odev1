@@ -48,6 +48,16 @@ const sunucu = http.createServer((istek, yanit) => {
     return;
   }
 
+  if (yol === '/hakkimda') {
+    yanit.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    yanit.end(sayfa('Hakkımda', `
+      <h1>Hakkımda</h1>
+      <p>Merhaba, ben [AD SOYAD]. Yozgat Bozok Üniversitesi Bilgisayar Mühendisliği öğrencisiyim.</p>
+      <p>Bu projeyi BMH231 Web Programlama dersinde HTTP, Node.js ve Git konularını öğrenmek için hazırlıyorum.</p>
+      <p><a href="/">Ana sayfaya dön</a></p>`));
+    return;
+  }
+
   if (yol === '/api/agep') {
     // İki tarihi de gün başlangıcına çekmek saatten kaynaklanan eksik gün hesabını önler.
     // Sunucunun yerel saat dilimi kullanılır; Türkiye için TZ=Europe/Istanbul uygundur.
