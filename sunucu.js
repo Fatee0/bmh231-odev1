@@ -32,6 +32,16 @@ const sunucu = http.createServer((istek, yanit) => {
   const yol = new URL(istek.url, 'http://localhost:3000').pathname;
   console.log(`${istek.method} ${yol}`);
 
+  // Yöntem kontrolü bütün yollardan önce yapılır.
+  if (istek.method !== 'GET') {
+    yanit.writeHead(405, {
+      'Content-Type': 'text/plain; charset=utf-8',
+      Allow: 'GET',
+    });
+    yanit.end('Yönteme izin verilmiyor');
+    return;
+  }
+
   if (yol === '/api/ders') {
     yanit.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
     yanit.end(JSON.stringify({ kod: 'BMH231', ad: 'Web Programlama', gun: DERS_GUNU }));
