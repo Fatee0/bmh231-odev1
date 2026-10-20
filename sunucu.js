@@ -4,8 +4,7 @@ const http = require('node:http');
 const dayjs = require('dayjs');
 
 const PORT = 3000;
-// Kişisel bilgilerin gelince bu alanları güncelle.
-const DERS_GUNU = '[DERS GÜNÜNÜ YAZ]';
+const DERS_GUNU = 'Cuma';
 
 // Her sayfa aynı HTML iskeletini kullanır. Dosyalar UTF-8 olarak saklanır.
 function sayfa(baslik, icerik) {
@@ -52,7 +51,7 @@ const sunucu = http.createServer((istek, yanit) => {
     yanit.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
     yanit.end(sayfa('Hakkımda', `
       <h1>Hakkımda</h1>
-      <p>Merhaba, ben [AD SOYAD]. Yozgat Bozok Üniversitesi Bilgisayar Mühendisliği öğrencisiyim.</p>
+      <p>Merhaba, ben Fatmanur Bazoğlu. Yozgat Bozok Üniversitesi Bilgisayar Mühendisliği öğrencisiyim.</p>
       <p>Bu projeyi BMH231 Web Programlama dersinde HTTP, Node.js ve Git konularını öğrenmek için hazırlıyorum.</p>
       <p><a href="/">Ana sayfaya dön</a></p>`));
     return;
