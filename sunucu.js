@@ -76,7 +76,7 @@ const sunucu = http.createServer((istek, yanit) => {
   if (yol === '/') {
     yanit.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
     yanit.end(sayfa('Ana sayfa', `
-      <h1>Web Programlama Projem</h1>
+      <h1>Web Programlama - Ödev 1</h1>
       <p>Node.js ile hazırlanan küçük HTTP sunucusuna hoş geldiniz.</p>
       <ul>
         <li><a href="/hakkimda">Hakkımda</a></li>
